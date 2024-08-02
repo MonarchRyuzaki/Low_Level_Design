@@ -13,11 +13,9 @@ private:
     }
 public:
     static Singleton* getInstance() {
+        lock_guard<mutex> lock(mtx);
         if (instance == nullptr) {
-            lock_guard<mutex> lock(mtx);
-            if (instance == nullptr) {
-                instance = new Singleton();
-            } 
+            instance = new Singleton();
         }
         return instance;
     }
